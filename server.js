@@ -1,6 +1,17 @@
+process.env.PORT = process.env.PORT || 3000;
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
+var express      = require('express');
+var app          = express();
+var httpapp      = express();
+var io           = null;
+
+require('./middlewares')(app);
+require('./api/app')(app);
+
+/*
 var http = require('http');
 var axios = require('axios');
-var key = 'AIzaSyCcQpo7-hkjtTQDJ7QQ8rCXb2MFC7rNrEA';
 
 var server = http.createServer(function (req, res) {
     res.writeHead(200)
@@ -26,7 +37,7 @@ var server = http.createServer(function (req, res) {
 
                 let link = x.displayLink;
 
-                if (partness.indexOf(link) !== -1) {
+                if (partness.indexOf(link) != -1 && result.indexOf(link) != -1) {
 
                     axios.get(x.link)
                         .then(function (response) {
@@ -47,4 +58,17 @@ var server = http.createServer(function (req, res) {
         });
 });
 
-server.listen(3000);
+*/
+
+if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'homolog') {
+    var http = require('http').Server(app);
+    http.listen(process.env.PORT, () => {
+        console.log('API Running on PORT: ' + process.env.PORT + ' and Env: ' + process.env.NODE_ENV);
+    });
+}
+
+httpapp.get('*',function(req,res){  
+    res.redirect("https://" + req.headers['host'] + req.url)
+})
+
+module.exports = app;

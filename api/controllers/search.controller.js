@@ -31,10 +31,10 @@ exports.findProduct = async (req, res) => {
             esferaPrices.push(data[i][6]);
         }
     }
-    // var produto = 'Jogo Batman Return to Arkham - PS4';
+    var produto = 'Jogo Batman Return to Arkham - PS4';
 
-    for (let i = 0; i < produtos.length; i++) {
-        await axios.get('https://www.googleapis.com/customsearch/v1?key=' + key + '&cx=003216286274829255770:9xnumqivkoa&q=' + produtos[0])
+    // for (let i = 0; i < produtos.length; i++) {
+        await axios.get('https://www.googleapis.com/customsearch/v1?key=' + key + '&cx=003216286274829255770:9xnumqivkoa&q=' + produto)
             .then(async function (responseGoogle) {
                 if (responseGoogle.data.items) {
                     for (let item of responseGoogle.data.items) {
@@ -42,6 +42,7 @@ exports.findProduct = async (req, res) => {
                         fetch(item.link)
                             .then(res => res.text())
                             .then(text => {
+                                console.log(text);
                                 var itemDisplay = {
                                     name: "",
                                     priceEsfera: 0,
@@ -62,6 +63,6 @@ exports.findProduct = async (req, res) => {
             .catch(function (error) {
                 console.log(error);
             });
-    }
+    // }
     res.json(result);
 }

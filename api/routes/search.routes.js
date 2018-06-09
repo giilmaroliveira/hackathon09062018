@@ -5,6 +5,6 @@ var app = express();
 module.exports = (app) => {
 
     app.route('/api/search/product')
-        .get(search.findProduct)
+        .get(search.findProduct);
 
 }

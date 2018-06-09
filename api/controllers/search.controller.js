@@ -22,14 +22,12 @@ exports.findProduct = (req, res) => {
     var buscaGeral = axios.get('https://www.googleapis.com/customsearch/v1?key=' + key + '&cx=012800600422885102694:ff4mxjkilwq&q=' + produto)
         .then(function (responseGoogle) {
 
+            for (let item of responseGoogle.data.items) {
 
-            responseGoogle.data.items.forEach(x => {
+                let link = item.displayLink;
 
-                let link = x.displayLink;
-
-                if (partness.indexOf(link) != -1) {
-
-                    axios.get(x.link)
+                if (partness.indexOf(link) != -1 && !(result.indexOf(link) != -1)) {
+                    axios.get(link)
                         .then(function (response) {
                             result.push(link);
                             console.log(link);
@@ -38,12 +36,11 @@ exports.findProduct = (req, res) => {
                             console.log(error);
                         });
                 }
+            }
 
-            });
-
+            console.log('teste')
             res.json(result);
 
-            console.log(result);
         })
         .catch(function (error) {
             console.log(error);

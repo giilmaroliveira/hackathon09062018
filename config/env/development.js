@@ -1,4 +1,4 @@
-var keyGoogle = 'AIzaSyCcQpo7-hkjtTQDJ7QQ8rCXb2MFC7rNrEA';
+var keyGoogle = 'AIzaSyABSqbblBMcVRaNveCGaGtdZR3epDpglmc';
 
 module.exports = {
 	keyGoogle

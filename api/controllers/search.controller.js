@@ -17,28 +17,28 @@ exports.findProduct = (req, res) => {
 
     var produto = 'Jogo Batman Return to Arkham - PS4';
 
-    produto = produto.replace(' ', '+');
+    //produto = produto.replace(/ /g, '+');
 
-    var buscaGeral = axios.get('https://www.googleapis.com/customsearch/v1?key=' + key + '&cx=012800600422885102694:ff4mxjkilwq&q=' + produto)
+    var buscaGeral = axios.get('https://www.googleapis.com/customsearch/v1?key=' + key + '&cx=003216286274829255770:9xnumqivkoa&q=' + produto)
         .then(function (responseGoogle) {
+            if (responseGoogle.data.items) {
+                for (let item of responseGoogle.data.items) {
+                    let link = item.displayLink;
 
-            for (let item of responseGoogle.data.items) {
-
-                let link = item.displayLink;
-
-                if (partness.indexOf(link) != -1 && !(result.indexOf(link) != -1)) {
-                    axios.get(link)
-                        .then(function (response) {
-                            result.push(link);
-                            console.log(link);
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
+                    if (partness.indexOf(link) != -1 && !(result.indexOf(link) != -1)) {
+                        axios.get(item.link)
+                            .then(function (response) {
+                                result.push(link);
+                                console.log(link);
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                    }
                 }
             }
 
-            console.log('teste')
+            console.log('teste');
             res.json(result);
 
         })

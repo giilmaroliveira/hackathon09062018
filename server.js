@@ -1,5 +1,6 @@
 var http = require('http');
 var axios = require('axios');
+var key = 'AIzaSyCcQpo7-hkjtTQDJ7QQ8rCXb2MFC7rNrEA';
 
 var server = http.createServer(function (req, res) {
     res.writeHead(200)
@@ -13,22 +14,31 @@ var server = http.createServer(function (req, res) {
 
     var result = [];
 
+    var produto = 'Jogo Batman Return to Arkham - PS4';
 
-    var buscaGeral = axios.get('https://www.googleapis.com/customsearch/v1?key=AIzaSyCcQpo7-hkjtTQDJ7QQ8rCXb2MFC7rNrEA&cx=012800600422885102694:ff4mxjkilwq&q=Jogo+Batman+Return+to+Arkham+-+PS4')
+    produto = produto.replace(' ','+');
+
+    var buscaGeral = axios.get('https://www.googleapis.com/customsearch/v1?key=' + key + '&cx=012800600422885102694:ff4mxjkilwq&q=' + produto)
         .then(function (responseGoogle) {
+
 
             responseGoogle.data.items.forEach(x => {
 
-                axios.get(x.link)
-                    .then(function (response) {
-                        result.push(x.displayLink);
-                        console.log(result);
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                if (partness.indexOf(x.displayLink) !== -1) {
+
+                    axios.get(x.link)
+                        .then(function (response) {
+                            result.push(x.displayLink);
+                            console.log(x.displayLink);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                }
+
             });
 
+            console.log(result);
         })
         .catch(function (error) {
             console.log(error);

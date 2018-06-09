@@ -1,9 +1,10 @@
 'use strict';
-
+var XLSX = require('xlsx')
+// var request = require('request');
 var axios = require('axios');
 var config = require('../../config/config');
 
-exports.findProduct = (req, res) => {
+exports.findProduct = async (req, res) => {
 
     var partness = [
         'www.pontoslivelo.com.br',
@@ -17,9 +18,7 @@ exports.findProduct = (req, res) => {
 
     var produto = 'Jogo Batman Return to Arkham - PS4';
 
-    //produto = produto.replace(/ /g, '+');
-
-    var buscaGeral = axios.get('https://www.googleapis.com/customsearch/v1?key=' + key + '&cx=003216286274829255770:9xnumqivkoa&q=' + produto)
+    await axios.get('https://www.googleapis.com/customsearch/v1?key=' + key + '&cx=003216286274829255770:9xnumqivkoa&q=' + produto)
         .then(function (responseGoogle) {
             if (responseGoogle.data.items) {
                 for (let item of responseGoogle.data.items) {
@@ -37,13 +36,9 @@ exports.findProduct = (req, res) => {
                     }
                 }
             }
-
-            console.log('teste');
-            res.json(result);
-
         })
         .catch(function (error) {
             console.log(error);
         });
-
+        res.json(result);
 }

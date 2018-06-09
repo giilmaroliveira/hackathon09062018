@@ -27,12 +27,12 @@ exports.findProduct = (req, res) => {
 
                 let link = x.displayLink;
 
-                if (partness.indexOf(link) != -1 && result.indexOf(link) != -1) {
+                if (partness.indexOf(link) != -1) {
 
                     axios.get(x.link)
                         .then(function (response) {
-                            result.push(x.displayLink);
-                            console.log(x.displayLink);
+                            result.push(link);
+                            console.log(link);
                         })
                         .catch(function (error) {
                             console.log(error);

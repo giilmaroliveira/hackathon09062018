@@ -1,1 +1,3 @@
-# hackathon09062018
+09/06/2018
+
+Hackathon FCamara & LTM

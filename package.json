@@ -1,0 +1,25 @@
+{
+  "name": "hackathon09062018",
+  "version": "1.0.0",
+  "description": "09/06/2018",
+  "main": "server.js",
+  "dependencies": {
+    "axios": "^0.18.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/giilmaroliveira/hackathon09062018.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/giilmaroliveira/hackathon09062018/issues"
+  },
+  "homepage": "https://github.com/giilmaroliveira/hackathon09062018#readme"
+}

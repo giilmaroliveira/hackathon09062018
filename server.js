@@ -24,7 +24,9 @@ var server = http.createServer(function (req, res) {
 
             responseGoogle.data.items.forEach(x => {
 
-                if (partness.indexOf(x.displayLink) !== -1) {
+                let link = x.displayLink;
+
+                if (partness.indexOf(link) !== -1) {
 
                     axios.get(x.link)
                         .then(function (response) {
